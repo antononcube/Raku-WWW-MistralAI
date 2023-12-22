@@ -1,0 +1,43 @@
+{
+  "name": "WWW::MistralAI",
+  "description": "WWW::MistralAI provides access to the MistralAI playground (https://mistral.ai).",
+  "version": "0.1.0",
+  "perl": "6.*",
+  "authors": [
+    "Anton Antonov"
+  ],
+  "auth": "zef:antononcube",
+  "depends": [
+    "HTTP::Tiny:ver<0.2.5+>",
+    "JSON::Fast:ver<0.17+>",
+    "IO::Socket::SSL:ver<0.0.2+>"
+  ],
+  "build-depends": [],
+  "test-depends": [],
+  "provides": {
+    "WWW::MistralAI": "lib/WWW/MistralAI.rakumod",
+    "WWW::MistralAI::ChatCompletions": "lib/WWW/MistralAI/ChatCompletions.rakumod",
+    "WWW::MistralAI::Embeddings": "lib/WWW/MistralAI/Embeddings.rakumod",
+    "WWW::MistralAI::Models": "lib/WWW/MistralAI/Models.rakumod",
+    "WWW::MistralAI::Request": "lib/WWW/MistralAI/Request.rakumod"
+  },
+  "resources": [],
+  "license": "Artistic-2.0",
+  "tags": [
+    "ai",
+    "api",
+    "art",
+    "embeddings",
+    "generative art",
+    "generative",
+    "large language model",
+    "llm",
+    "mistral ai",
+    "mistral.ai",
+    "mistralai",
+    "web service",
+    "web"
+  ],
+  "api": "1",
+  "source-url": "https://github.com/antononcube/Raku-WWW-MistralAI"
+}
