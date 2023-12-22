@@ -73,7 +73,7 @@ multi sub MistralAIChatCompletion(@prompts is copy,
     #------------------------------------------------------
     if $temperature.isa(Whatever) { $temperature = 0.7; }
     die "The argument \$temperature is expected to be Whatever or number between 0 and 2."
-    unless $temperature ~~ Numeric && 0 ≤ $temperature ≤ 2;
+    unless $temperature ~~ Numeric && 0 ≤ $temperature ≤ 1;
 
     #------------------------------------------------------
     # Process $max-tokens
@@ -86,7 +86,7 @@ multi sub MistralAIChatCompletion(@prompts is copy,
     # Process $top-p
     #------------------------------------------------------
     if $top-p.isa(Whatever) { $top-p = 1.0; }
-    die "The argument \$temperature is expected to be Whatever or number between 0 and 1."
+    die "The argument \$top-p is expected to be Whatever or number between 0 and 1."
     unless $top-p ~~ Numeric && 0 ≤ $top-p ≤ 1;
 
     #------------------------------------------------------
