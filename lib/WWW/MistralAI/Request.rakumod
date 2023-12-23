@@ -1,9 +1,7 @@
-use v6.d;
+unit module WWW::MistralAI::Request;
 
 use JSON::Fast;
 use HTTP::Tiny;
-
-unit module WWW::MistralAI::Request;
 
 #============================================================
 # POST Tiny call
@@ -37,6 +35,17 @@ multi sub tiny-post(Str :$url!,
     return $resp<content>.decode;
 }
 
+#============================================================
+# POST Tiny call
+#============================================================
+
+multi sub tiny-get(Str :$url!,
+                   Str :api-key(:$auth-key)!,
+                   UInt :$timeout = 10) {
+    my $resp = HTTP::Tiny.get: $url,
+            headers => { authorization => "Bearer $auth-key" };
+    return $resp<content>.decode;
+}
 
 #============================================================
 # POST Curl call
@@ -148,6 +157,9 @@ multi sub mistralai-request(Str :$url!,
     my $res = do given $method.lc {
         when 'curl' {
             curl-post(:$url, :$body, :$auth-key, :$timeout);
+        }
+        when 'tiny' && !(so $body) {
+            tiny-get(:$url, :$auth-key, :$timeout);
         }
         when 'tiny' {
             tiny-post(:$url, :$body, :$auth-key, :$timeout);
