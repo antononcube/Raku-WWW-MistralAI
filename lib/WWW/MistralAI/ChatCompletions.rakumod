@@ -1,12 +1,10 @@
-use v6.d;
+unit module WWW::MistralAI::ChatCompletions;
 
 use WWW::MistralAI::Models;
 use WWW::MistralAI::Request;
 use JSON::Fast;
 use MIME::Base64;
 use Image::Markup::Utilities;
-
-unit module WWW::MistralAI::ChatCompletions;
 
 #============================================================
 # Known roles
@@ -80,7 +78,7 @@ multi sub MistralAIChatCompletion(@prompts is copy,
     #------------------------------------------------------
     # Process $max-tokens
     #------------------------------------------------------
-    if $max-tokens.isa(Whatever) { $max-tokens = 16; }
+    if $max-tokens.isa(Whatever) { $max-tokens = 64; }
     die "The argument \$max-tokens is expected to be Whatever or a positive integer."
     unless $max-tokens ~~ Int && 0 < $max-tokens;
 

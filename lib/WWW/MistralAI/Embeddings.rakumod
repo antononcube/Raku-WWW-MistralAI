@@ -1,10 +1,9 @@
-use v6.d;
+
+unit module WWW::MistralAI::Embeddings;
 
 use WWW::MistralAI::Models;
 use WWW::MistralAI::Request;
 use JSON::Fast;
-
-unit module WWW::MistralAI::Embeddings;
 
 #============================================================
 # Embeddings

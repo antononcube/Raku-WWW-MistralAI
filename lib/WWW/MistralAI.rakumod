@@ -1,9 +1,7 @@
-use v6.d;
+unit module WWW::MistralAI;
 
 use JSON::Fast;
 use HTTP::Tiny;
-
-unit module WWW::MistralAI;
 
 use WWW::MistralAI::ChatCompletions;
 use WWW::MistralAI::Embeddings;
