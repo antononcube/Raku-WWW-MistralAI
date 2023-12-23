@@ -14,6 +14,14 @@ This package is very similar to the packages
 ["WWW::OpenAI"](https://github.com/antononcube/Raku-WWW-OpenAI), [AAp1], and 
 ["WWW::PaLM"](https://github.com/antononcube/Raku-WWW-PaLM), [AAp2]. 
 
+"WWW::MistralAI" can be used with (is integrated with) 
+["LLM::Functions"](https://github.com/antononcube/Raku-LLM-Functions), [AAp3], and
+["Jupyter::Chatbook"](https://github.com/antononcube/Raku-Jupyter-Chatbook), [AAp5].
+
+Also, of course, prompts from 
+["LLM::Prompts"](https://github.com/antononcube/Raku-LLM-Prompts), [AAp4],
+can be used with MistralAI's functions.
+
 -----
 
 ## Installation
@@ -52,7 +60,7 @@ use WWW::MistralAI;
 mistralai-playground('Where is Roger Rabbit?', max-tokens => 64);
 ```
 ```
-# [{finish_reason => length, index => 0, message => {content => Roger Rabbit is a fictional character from animation, specifically from the "Who Framed Roger Rabbit" film produced by Disney and Amblin Entertainment and released in 1988. He is a cartoon character who lives in the fictional Toon Town, which is a part of the larger city, role => assistant}}]
+# [{finish_reason => length, index => 0, message => {content => Roger Rabbit is a fictional character from animated films and Television. He first appeared in the 1988 live-action/animated film "Who Framed Roger Rabbit." Roger is a cartoon character residing in the fictional Toon Town, a part of the city of Los Angeles., role => assistant}}]
 ```
 
 Another one using Bulgarian:
@@ -61,7 +69,7 @@ Another one using Bulgarian:
 mistralai-playground('Колко групи могат да се намерят в този облак от точки.', max-tokens => 64);
 ```
 ```
-# [{finish_reason => length, index => 0, message => {content => To answer your question, I would need more information. The provided phrase "този облак от точки" (this cloud of points) is not specific enough to determine the number of groups that can be found within it. The term "group" is also not clearly defined. Are we looking for clusters of points, role => assistant}}]
+# [{finish_reason => length, index => 0, message => {content => To answer your question, I would need more information. The given phrase "този облак от точки" can be translated to "this cluster of points" in English. However, without knowing the specific data or context, it is impossible to determine how many groups or clusters can be found in this data set., role => assistant}}]
 ```
 
 **Remark:** The function `mistralai-completion` can be used instead in the examples above. 
@@ -90,17 +98,18 @@ mistralai-completion(
         format => 'values');
 ```
 ```
-# Here's an example of making a loop over a list in Raku:
+# Here is an example of making a loop over a list in Raku:
 # 
 # ```raku
-# my @list = (1, 2, 3, 4, 5); # define a list
+# my @list = (1, 2, 3, 4, 5); # Define a list
 # 
-# for @list -> $element { # use a for loop to iterate over each element in the list
-#     say $element; # print out the element
+# for my $item @list -> $_ {
+#     # Do something with each item in the list
+#     say "Current item: ", $_;
 # }
 # ```
 # 
-# You can also use other types of loops like `map`, `grep`, or `zip`, which may be more appropriate depending on your specific use case. Here
+# In this example, we define a list `@list` and use the `for` loop to iterate through each item in the list. The `->` arrow operator is
 ```
 
 Here is a chat completion:
@@ -112,17 +121,17 @@ mistralai-completion(
         format => 'values');
 ```
 ```
-# Here is an example of making a loop over a list in Raku:
+# In Raku, you can use the `loop` keyword along with the `given-when` construct to make a loop over a list. Here's an example:
 # 
 # ```raku
-# my @numbers = (1, 2, 3, 4, 5); # define a list of numbers
+# my @list = (1, 2, 3, 4, 5);
 # 
-# for my $number (@numbers) { # start a for loop over each element in the list
-#     say "$number squared is: ", $number ** 2; # perform an operation on the element and print the result
+# loop @list -> $item {
+#     say "$item";
 # }
 # ```
 # 
-# In this example, we first define a list of numbers `@numbers`.
+# In the above code, we define a list `@list` with five elements. The `loop` statement iterates over each element in the list, assigning the current element
 ```
 
 
@@ -161,16 +170,16 @@ records-summary($embs.kv.Hash.&transpose);
 ```
 # $embs.elems : 4
 # $embs>>.elems : 1024 1024 1024 1024
-# +----------------------------------+----------------------------------+-----------------------------------+-----------------------------------+
-# | 3                                | 1                                | 2                                 | 0                                 |
-# +----------------------------------+----------------------------------+-----------------------------------+-----------------------------------+
-# | Min    => -0.088867              | Min    => -0.091675              | Min    => -0.126343               | Min    => -0.140381               |
-# | 1st-Qu => -0.022064              | 1st-Qu => -0.021881              | 1st-Qu => -0.021805               | 1st-Qu => -0.019684               |
-# | Mean   => -0.0014019259251654148 | Mean   => -0.0014658444561064243 | Mean   => -0.00016893696738407016 | Mean   => 0.0001275218091905117   |
-# | Median => -0.0015511512756347656 | Median => -0.0017815             | Median => 0.0005223751068115234   | Median => -0.00012609362602233888 |
-# | 3rd-Qu => 0.019516               | 3rd-Qu => 0.019943               | 3rd-Qu => 0.021469                | 3rd-Qu => 0.021347                |
-# | Max    => 0.10968                | Max    => 0.111755               | Max    => 0.097534                | Max    => 0.088867                |
-# +----------------------------------+----------------------------------+-----------------------------------+-----------------------------------+
+# +----------------------------------+-----------------------------------+----------------------------------+-----------------------------------+
+# | 3                                | 0                                 | 1                                | 2                                 |
+# +----------------------------------+-----------------------------------+----------------------------------+-----------------------------------+
+# | Min    => -0.088867              | Min    => -0.140381               | Min    => -0.091675              | Min    => -0.126343               |
+# | 1st-Qu => -0.022064              | 1st-Qu => -0.019684               | 1st-Qu => -0.021881              | 1st-Qu => -0.021805               |
+# | Mean   => -0.0014019259251654148 | Mean   => 0.0001275218091905117   | Mean   => -0.0014658444561064243 | Mean   => -0.00016893696738407016 |
+# | Median => -0.0015511512756347656 | Median => -0.00012609362602233888 | Median => -0.0017815             | Median => 0.0005223751068115234   |
+# | 3rd-Qu => 0.019516               | 3rd-Qu => 0.021347                | 3rd-Qu => 0.019943               | 3rd-Qu => 0.021469                |
+# | Max    => 0.10968                | Max    => 0.088867                | Max    => 0.111755               | Max    => 0.097534                |
+# +----------------------------------+-----------------------------------+----------------------------------+-----------------------------------+
 ```
 
 Here we find the corresponding dot products and (cross-)tabulate them:
@@ -228,10 +237,8 @@ Here is an example of chat completion with emojification:
 mistralai-chat-completion([ system => $preEmojify, user => 'Python sucks, Raku rocks, and Perl is annoying'], max-tokens => 200, format => 'values')
 ```
 ```
-# 🐍 Python 🤤 sucks, 🌺 Raku 🚀 rocks, and 🐘 Perl 😓 is annoying
+# Python 😕, Raku 🔥, Perl 💩
 ```
-
-For more examples see the document ["Chat-completion-examples"](./docs/Chat-completion-examples_woven.md).
 
 -------
 
@@ -314,6 +321,21 @@ graph TD
 
 [AAp2] Anton Antonov,
 [WWW::PaLM Raku package](https://github.com/antononcube/Raku-WWW-PaLM),
+(2023),
+[GitHub/antononcube](https://github.com/antononcube).
+
+[AAp3] Anton Antonov,
+[LLM::Functions Raku package](https://github.com/antononcube/Raku-LLM-Functions),
+(2023),
+[GitHub/antononcube](https://github.com/antononcube).
+
+[AAp4] Anton Antonov,
+[LLM::Prompts Raku package](https://github.com/antononcube/Raku-LLM-Prompts),
+(2023),
+[GitHub/antononcube](https://github.com/antononcube).
+
+[AAp5] Anton Antonov,
+[Jupyter::Chatbook Raku package](https://github.com/antononcube/Raku-Jupyter-Chatbook),
 (2023),
 [GitHub/antononcube](https://github.com/antononcube).
 

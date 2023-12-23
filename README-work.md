@@ -14,6 +14,14 @@ This package is very similar to the packages
 ["WWW::OpenAI"](https://github.com/antononcube/Raku-WWW-OpenAI), [AAp1], and 
 ["WWW::PaLM"](https://github.com/antononcube/Raku-WWW-PaLM), [AAp2]. 
 
+"WWW::MistralAI" can be used with (is integrated with) 
+["LLM::Functions"](https://github.com/antononcube/Raku-LLM-Functions), [AAp3], and
+["Jupyter::Chatbook"](https://github.com/antononcube/Raku-Jupyter-Chatbook), [AAp5].
+
+Also, of course, prompts from 
+["LLM::Prompts"](https://github.com/antononcube/Raku-LLM-Prompts), [AAp4],
+can be used with MistralAI's functions.
+
 -----
 
 ## Installation
@@ -158,8 +166,6 @@ Here is an example of chat completion with emojification:
 mistralai-chat-completion([ system => $preEmojify, user => 'Python sucks, Raku rocks, and Perl is annoying'], max-tokens => 200, format => 'values')
 ```
 
-For more examples see the document ["Chat-completion-examples"](./docs/Chat-completion-examples_woven.md).
-
 -------
 
 ## Command Line Interface
@@ -226,6 +232,21 @@ graph TD
 
 [AAp2] Anton Antonov,
 [WWW::PaLM Raku package](https://github.com/antononcube/Raku-WWW-PaLM),
+(2023),
+[GitHub/antononcube](https://github.com/antononcube).
+
+[AAp3] Anton Antonov,
+[LLM::Functions Raku package](https://github.com/antononcube/Raku-LLM-Functions),
+(2023),
+[GitHub/antononcube](https://github.com/antononcube).
+
+[AAp4] Anton Antonov,
+[LLM::Prompts Raku package](https://github.com/antononcube/Raku-LLM-Prompts),
+(2023),
+[GitHub/antononcube](https://github.com/antononcube).
+
+[AAp5] Anton Antonov,
+[Jupyter::Chatbook Raku package](https://github.com/antononcube/Raku-Jupyter-Chatbook),
 (2023),
 [GitHub/antononcube](https://github.com/antononcube).
 
