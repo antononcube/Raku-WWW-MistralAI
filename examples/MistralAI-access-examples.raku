@@ -9,6 +9,16 @@ use WWW::MistralAI;
 
 #say mistralai-playground("What is the min speed of a rocket leaving Earh?", format => Whatever, max-tokens => 900);
 
-#say mistralai-playground('', path=>'models');
+say '=' x 120;
 
-say mistralai-embeddings('hello world'.words);
+my @models = |mistralai-playground(path => 'models');
+
+*<id>.say for @models;
+
+say '-' x 120;
+
+say mistralai-playground(path => 'models', format => 'values');
+
+say '=' x 120;
+
+#say mistralai-embeddings('hello world'.words);
