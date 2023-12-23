@@ -31,6 +31,7 @@ our proto MistralAIChatCompletion($prompt is copy,
                                   :$max-tokens is copy = Whatever,
                                   Numeric :$top-p = 1,
                                   Bool :$stream = False,
+                                  :$random-seed is copy = Whatever,
                                   :api-key(:$auth-key) is copy = Whatever,
                                   UInt :$timeout= 10,
                                   :$format is copy = Whatever,
@@ -49,6 +50,7 @@ multi sub MistralAIChatCompletion(@prompts is copy,
                                   :$max-tokens is copy = Whatever,
                                   Numeric :$top-p = 1,
                                   Bool :$stream = False,
+                                  :$random-seed is copy = Whatever,
                                   :api-key(:$auth-key) is copy = Whatever,
                                   UInt :$timeout= 10,
                                   :$format is copy = Whatever,
@@ -96,6 +98,12 @@ multi sub MistralAIChatCompletion(@prompts is copy,
     unless $stream ~~ Bool;
 
     #------------------------------------------------------
+    # Process $random-seed
+    #------------------------------------------------------
+    die "The argument \$random-seed is expected to be a integer or Whatever."
+    unless $random-seed.isa(Whatever) || $random-seed ~~ Int;
+
+    #------------------------------------------------------
     # Messages
     #------------------------------------------------------
     my @messages = @prompts.map({
@@ -114,6 +122,10 @@ multi sub MistralAIChatCompletion(@prompts is copy,
                top_p => $top-p,
                :@messages,
                max_tokens => $max-tokens;
+
+    if $random-seed ~~ Int:D {
+        %body.push('random_seed' => $random-seed);
+    }
 
     my $url = 'https://api.mistral.ai/v1/chat/completions';
 

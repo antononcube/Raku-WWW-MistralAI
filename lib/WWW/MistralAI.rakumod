@@ -121,7 +121,7 @@ multi sub mistralai-playground($text is copy,
         }
         when $_ ∈ <completion completions chat/completions> {
             # my $url = 'https://api.mistral.ai/v1/chat/completions';
-            my $expectedKeys = <model prompt max-tokens temperature top-p stream echo>;
+            my $expectedKeys = <model prompt max-tokens temperature top-p stream echo random-seed>;
             return mistralai-chat-completion($text,
                     |%args.grep({ $_.key ∈ $expectedKeys }).Hash,
                     :$auth-key, :$timeout, :$format, :$method);
