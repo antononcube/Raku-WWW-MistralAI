@@ -1,7 +1,8 @@
+unit module WWW::MistralAI::Models;
+
 use HTTP::Tiny;
 use JSON::Fast;
-
-unit module WWW::MistralAI::Models;
+use WWW::MistralAI::Request;
 
 
 #============================================================
@@ -65,7 +66,11 @@ multi sub mistralai-model-to-end-points(Str $model) {
 #============================================================
 
 #| MistralAI models.
-our sub MistralAIModels(:api-key(:$auth-key) is copy = Whatever, UInt :$timeout = 10) is export {
+our sub MistralAIModels(
+        :$format is copy = Whatever,
+        Str :$method = 'tiny',
+        :api-key(:$auth-key) is copy = Whatever,
+        UInt :$timeout = 10) is export {
     #------------------------------------------------------
     # Process $auth-key
     #------------------------------------------------------
@@ -87,9 +92,5 @@ our sub MistralAIModels(:api-key(:$auth-key) is copy = Whatever, UInt :$timeout 
     #------------------------------------------------------
     my Str $url = 'https://api.mistral.ai/v1/models';
 
-    my $resp = HTTP::Tiny.get: $url ~ "?key={ %*ENV<MISTRAL_API_KEY> }";
-
-    my $res = from-json($resp<content>.decode);
-
-    return $res<models>.map({ $_<name> });
+    return mistralai-request(:$url, body => '', :$auth-key, :$timeout, :$format, :$method);
 }
