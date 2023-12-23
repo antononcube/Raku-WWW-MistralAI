@@ -28,6 +28,6 @@ dies-ok {
 };
 
 ## 6
-ok mistralai-completion('Generate Raku code for a loop over a list', model => 'mistral-medium', :$method);
+ok mistralai-completion('Generate Raku code for a loop over a list', model => 'mistral-medium', random-seed => 12, :$method);
 
 done-testing;
