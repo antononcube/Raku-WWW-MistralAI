@@ -2,7 +2,7 @@
   "name": "WWW::MistralAI",
   "description": "WWW::MistralAI provides access to the MistralAI playground (https://mistral.ai).",
   "version": "0.1.1",
-  "perl": "6.*",
+  "perl": "6.d",
   "authors": [
     "Anton Antonov"
   ],
