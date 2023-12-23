@@ -57,16 +57,17 @@ Here is a simple call for a "chat completion":
 
 ```perl6
 use WWW::MistralAI;
-mistralai-playground('Where is Roger Rabbit?', max-tokens => 64);
+mistralai-playground('Where is Roger Rabbit?');
 ```
 
 Another one using Bulgarian:
 
 ```perl6
-mistralai-playground('Колко групи могат да се намерят в този облак от точки.', max-tokens => 64);
+mistralai-playground('Колко групи могат да се намерят в този облак от точки.', max-tokens => 300, random-seed => 234232, format => 'values');
 ```
 
-**Remark:** The function `mistralai-completion` can be used instead in the examples above. 
+**Remark:** The functions `mistralai-chat-completion` or `mistralai-completion` can be used instead in the examples above.
+(The latter is synonym of the former.)
 
 
 ### Models
@@ -74,7 +75,7 @@ mistralai-playground('Колко групи могат да се намерят 
 The current MistralAI models can be found with the function `mistralai-models`:
 
 ```perl6
-mistralai-models
+*<id>.say for |mistralai-models;
 ```
 
 ### Code generation

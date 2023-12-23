@@ -57,22 +57,27 @@ Here is a simple call for a "chat completion":
 
 ```perl6
 use WWW::MistralAI;
-mistralai-playground('Where is Roger Rabbit?', max-tokens => 64);
+mistralai-playground('Where is Roger Rabbit?');
 ```
 ```
-# [{finish_reason => length, index => 0, message => {content => Roger Rabbit is a fictional character from animated films and Television. He first appeared in the 1988 live-action/animated film "Who Framed Roger Rabbit." Roger is a cartoon character residing in the fictional Toon Town, a part of the city of Los Angeles., role => assistant}}]
+# [{finish_reason => length, index => 0, message => {content => Roger Rabbit is a fictional character from animation. He first appeared in the, role => assistant}}]
 ```
 
 Another one using Bulgarian:
 
 ```perl6
-mistralai-playground('Колко групи могат да се намерят в този облак от точки.', max-tokens => 64);
+mistralai-playground('Колко групи могат да се намерят в този облак от точки.', max-tokens => 300, random-seed => 234232, format => 'values');
 ```
 ```
-# [{finish_reason => length, index => 0, message => {content => To answer your question, I would need more information. The given phrase "този облак от точки" can be translated to "this cluster of points" in English. However, without knowing the specific data or context, it is impossible to determine how many groups or clusters can be found in this data set., role => assistant}}]
+# To determine the number of groups in this cluster of points, I would need more information. Traditionally, groups in a set of data points are identified using clustering algorithms. The number of groups identified depends on the specific clustering algorithm used and the parameters set for that algorithm.
+# 
+# For example, if we use K-Means clustering, we need to specify the number of clusters (K) beforehand. The algorithm will then group the points into K clusters based on their proximity to the centroids. If we don't know how many clusters exist in the data, we can try different values of K and evaluate the results using measures like the Silhouette score.
+# 
+# Without applying a clustering algorithm to the given set of points or having some prior knowledge about the number of groups, it is not possible to give an answer to this question.
 ```
 
-**Remark:** The function `mistralai-completion` can be used instead in the examples above. 
+**Remark:** The functions `mistralai-chat-completion` or `mistralai-completion` can be used instead in the examples above.
+(The latter is synonym of the former.)
 
 
 ### Models
@@ -80,10 +85,13 @@ mistralai-playground('Колко групи могат да се намерят 
 The current MistralAI models can be found with the function `mistralai-models`:
 
 ```perl6
-mistralai-models
+*<id>.say for |mistralai-models;
 ```
 ```
-# ((Any))
+# mistral-medium
+# mistral-small
+# mistral-tiny
+# mistral-embed
 ```
 
 ### Code generation
@@ -98,18 +106,17 @@ mistralai-completion(
         format => 'values');
 ```
 ```
-# Here is an example of making a loop over a list in Raku:
+# Here's an example of how to make a loop over a list in Raku:
 # 
 # ```raku
-# my @list = (1, 2, 3, 4, 5); # Define a list
+# my @numbers = (1, 2, 3, 4, 5); # create a list of numbers
 # 
-# for my $item @list -> $_ {
-#     # Do something with each item in the list
-#     say "Current item: ", $_;
+# for ^@numbers -> $number { # use a for loop to iterate over the list
+#     say "$number squared is: ", $number ** 2; # perform an operation on each number
 # }
 # ```
 # 
-# In this example, we define a list `@list` and use the `for` loop to iterate through each item in the list. The `->` arrow operator is
+# In the example above, we use a `for` loop with the `^@
 ```
 
 Here is a chat completion:
@@ -121,17 +128,17 @@ mistralai-completion(
         format => 'values');
 ```
 ```
-# In Raku, you can use the `loop` keyword along with the `given-when` construct to make a loop over a list. Here's an example:
+# In Raku, you can use the `for` keyword to loop over a list. Here is an example of how to use it:
 # 
 # ```raku
-# my @list = (1, 2, 3, 4, 5);
+# my @numbers = (1, 2, 3, 4, 5);
 # 
-# loop @list -> $item {
-#     say "$item";
+# for ^@numbers -> $number {
+#     say "Current number: $number";
 # }
 # ```
 # 
-# In the above code, we define a list `@list` with five elements. The `loop` statement iterates over each element in the list, assigning the current element
+# In this example, we define a list `@numbers` with the elements 1, 2, 3, 4, and 5. The `for` loop
 ```
 
 
@@ -237,7 +244,7 @@ Here is an example of chat completion with emojification:
 mistralai-chat-completion([ system => $preEmojify, user => 'Python sucks, Raku rocks, and Perl is annoying'], max-tokens => 200, format => 'values')
 ```
 ```
-# Python 😕, Raku 🔥, Perl 💩
+# 😠 Python sucks, 🌈 Raku rocks, 😓 Perl is annoying
 ```
 
 -------
