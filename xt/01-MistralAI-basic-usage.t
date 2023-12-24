@@ -20,6 +20,6 @@ ok mistralai-playground('What is the most important word in English today?', :$m
 ok mistralai-playground('Generate Raku code for a loop over a list', path => 'completions', type => Whatever, model => Whatever, :$method);
 
 ## 4
-ok mistralai-playground('Generate Raku code for a loop over a list', path => 'chat/completions', model => 'mist', :$method);
+ok mistralai-playground('Generate Raku code for a loop over a list', path => 'chat/completions', model => 'mistral-medium', :$method);
 
 done-testing;
