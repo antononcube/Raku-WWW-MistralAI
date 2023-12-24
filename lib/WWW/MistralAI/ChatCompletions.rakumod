@@ -3,8 +3,6 @@ unit module WWW::MistralAI::ChatCompletions;
 use WWW::MistralAI::Models;
 use WWW::MistralAI::Request;
 use JSON::Fast;
-use MIME::Base64;
-use Image::Markup::Utilities;
 
 #============================================================
 # Known roles
