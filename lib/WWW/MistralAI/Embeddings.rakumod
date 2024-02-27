@@ -16,7 +16,8 @@ our proto MistralAIEmbeddings($prompt,
                               :api-key(:$auth-key) is copy = Whatever,
                               UInt :$timeout= 10,
                               :$format is copy = Whatever,
-                              Str :$method = 'tiny'
+                              Str :$method = 'tiny',
+                              Str :$base-url = 'https://api.mistral.ai/v1'
                               ) is export {*}
 
 
@@ -27,7 +28,8 @@ multi sub MistralAIEmbeddings($prompt,
                               :api-key(:$auth-key) is copy = Whatever,
                               UInt :$timeout= 10,
                               :$format is copy = Whatever,
-                              Str :$method = 'tiny') {
+                              Str :$method = 'tiny',
+                              Str :$base-url = 'https://api.mistral.ai/v1') {
 
     #------------------------------------------------------
     # Process $model
@@ -47,7 +49,7 @@ multi sub MistralAIEmbeddings($prompt,
     # MistralAI URL
     #------------------------------------------------------
 
-    my $url = 'https://api.mistral.ai/v1/embeddings';
+    my $url = $base-url ~ '/v1/embeddings';
 
     #------------------------------------------------------
     # Delegate

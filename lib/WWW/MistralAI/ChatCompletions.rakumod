@@ -31,7 +31,8 @@ our proto MistralAIChatCompletion($prompt is copy,
                                   :api-key(:$auth-key) is copy = Whatever,
                                   UInt :$timeout= 10,
                                   :$format is copy = Whatever,
-                                  Str :$method = 'tiny') is export {*}
+                                  Str :$method = 'tiny',
+                                  Str :$base-url = 'https://api.mistral.ai/v1') is export {*}
 
 #| MistralAI completion access.
 multi sub MistralAIChatCompletion(Str $prompt, *%args) {
@@ -50,7 +51,8 @@ multi sub MistralAIChatCompletion(@prompts is copy,
                                   :api-key(:$auth-key) is copy = Whatever,
                                   UInt :$timeout= 10,
                                   :$format is copy = Whatever,
-                                  Str :$method = 'tiny') {
+                                  Str :$method = 'tiny',
+                                  Str :$base-url = 'https://api.mistral.ai/v1') {
 
     #------------------------------------------------------
     # Process $role
@@ -123,7 +125,7 @@ multi sub MistralAIChatCompletion(@prompts is copy,
         %body.push('random_seed' => $random-seed);
     }
 
-    my $url = 'https://api.mistral.ai/v1/chat/completions';
+    my $url = $base-url ~ '/chat/completions';
 
     #------------------------------------------------------
     # Delegate

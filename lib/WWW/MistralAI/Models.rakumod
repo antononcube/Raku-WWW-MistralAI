@@ -69,6 +69,7 @@ multi sub mistralai-model-to-end-points(Str $model) {
 our sub MistralAIModels(
         :$format is copy = Whatever,
         Str :$method = 'tiny',
+        Str :$base-url = 'https://api.mistral.ai/v1',
         :api-key(:$auth-key) is copy = Whatever,
         UInt :$timeout = 10) is export {
     #------------------------------------------------------
@@ -90,7 +91,7 @@ our sub MistralAIModels(
     #------------------------------------------------------
     # Retrieve
     #------------------------------------------------------
-    my Str $url = 'https://api.mistral.ai/v1/models';
+    my Str $url = $base-url ~ '/v1/models';
 
     return mistralai-request(:$url, body => '', :$auth-key, :$timeout, :$format, :$method);
 }

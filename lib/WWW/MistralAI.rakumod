@@ -9,6 +9,11 @@ use WWW::MistralAI::Models;
 use WWW::MistralAI::Request;
 
 #===========================================================
+#| Gives the base URL of OpenAI's endpoints.
+our sub mistralai-base-url(-->Str) is export { return 'https://api.mistral.ai/v1';}
+
+
+#===========================================================
 #| MistralAI chat completions access. (Synonym of mistralai-chat-completion.)
 #| C<$prompt> -- message(s) to the LLM;
 #| C<:$role> -- role associated with the message(s);
@@ -86,6 +91,7 @@ our proto mistralai-playground($text is copy = '',
                                UInt :$timeout= 10,
                                :$format is copy = Whatever,
                                Str :$method = 'tiny',
+                               Str :$base-url = 'https://api.mistral.ai/v1',
                                *%args
                                ) is export {*}
 
@@ -106,6 +112,7 @@ multi sub mistralai-playground($text is copy,
                                UInt :$timeout= 10,
                                :$format is copy = Whatever,
                                Str :$method = 'tiny',
+                               Str :$base-url = 'https://api.mistral.ai/v1',
                                *%args
                                ) {
 
@@ -115,20 +122,20 @@ multi sub mistralai-playground($text is copy,
     given $path.lc {
         when $_ eq 'models' {
             # my $url = 'https://api.mistral.ai/v1/models';
-            return mistralai-models(:$auth-key, :$timeout);
+            return mistralai-models(:$auth-key, :$timeout, :$method, :$base-url);
         }
         when $_ ∈ <completion completions chat/completions> {
             # my $url = 'https://api.mistral.ai/v1/chat/completions';
             my $expectedKeys = <model prompt max-tokens temperature top-p stream echo random-seed>;
             return mistralai-chat-completion($text,
                     |%args.grep({ $_.key ∈ $expectedKeys }).Hash,
-                    :$auth-key, :$timeout, :$format, :$method);
+                    :$auth-key, :$timeout, :$format, :$method, :$base-url);
         }
         when $_ ∈ <embedding embeddings> {
             # my $url = 'https://api.mistral.ai/v1/embeddings';
             return mistralai-embeddings($text,
                     |%args.grep({ $_.key ∈ <model encoding-format> }).Hash,
-                    :$auth-key, :$timeout, :$format, :$method);
+                    :$auth-key, :$timeout, :$format, :$method, :$base-url);
         }
         default {
             die 'Do not know how to process the given path.';
