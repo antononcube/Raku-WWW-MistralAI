@@ -91,7 +91,7 @@ our sub MistralAIModels(
     #------------------------------------------------------
     # Retrieve
     #------------------------------------------------------
-    my Str $url = $base-url ~ '/v1/models';
+    my Str $url = $base-url ~ '/models';
 
     return mistralai-request(:$url, body => '', :$auth-key, :$timeout, :$format, :$method);
 }

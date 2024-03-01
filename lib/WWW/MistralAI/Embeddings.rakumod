@@ -49,7 +49,7 @@ multi sub MistralAIEmbeddings($prompt,
     # MistralAI URL
     #------------------------------------------------------
 
-    my $url = $base-url ~ '/v1/embeddings';
+    my $url = $base-url ~ '/embeddings';
 
     #------------------------------------------------------
     # Delegate
